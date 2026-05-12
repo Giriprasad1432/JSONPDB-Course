@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,31 +15,37 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding-top: 50px;
         }
+
         .container {
             max-width: 600px;
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
+
         h2 {
             text-align: center;
             margin-bottom: 30px;
             color: #333;
         }
+
         .form-group label {
             font-weight: bold;
         }
+
         .btn-row {
             text-align: center;
             margin-top: 20px;
         }
+
         .btn-row .btn {
             width: 100px;
             margin: 5px;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Student Enrollment Form</h2>
@@ -81,7 +88,8 @@
             </div>
             <div class="btn-row">
                 <button type="button" class="btn btn-primary" id="save" onclick="saveData()" disabled>Save</button>
-                <button type="button" class="btn btn-primary" id="update" onclick="updateData()" disabled>Update</button>
+                <button type="button" class="btn btn-primary" id="update" onclick="updateData()"
+                    disabled>Update</button>
                 <button type="button" class="btn btn-primary" id="reset" onclick="resetForm()">Reset</button>
             </div>
         </form>
@@ -108,12 +116,12 @@
         function getStudent() {
             var rollNo = $("#rollNo").val();
             if (rollNo === "") return "";
-            
-            var getRequest = createGET_BY_KEYRequest(token, dbName, relName, JSON.stringify({rollNo: rollNo}));
-            jQuery.ajaxSetup({async: false});
+
+            var getRequest = createGET_BY_KEYRequest(token, dbName, relName, JSON.stringify({ rollNo: rollNo }));
+            jQuery.ajaxSetup({ async: false });
             var result = executeCommandAtGivenBaseUrl(getRequest, "http://api.login2explore.com:5577", "/api/irl");
-            jQuery.ajaxSetup({async: true});
-            
+            jQuery.ajaxSetup({ async: true });
+
             if (result.status === 400) {
                 $("#save").prop("disabled", false);
                 $("#reset").prop("disabled", false);
@@ -153,7 +161,7 @@
 
         function saveData() {
             if (!validateFields()) return;
-            
+
             var student = {
                 rollNo: $("#rollNo").val(),
                 fullName: $("#fullName").val(),
@@ -163,9 +171,9 @@
                 enrollmentDate: $("#enrollmentDate").val()
             };
             var request = createPUTRequest(token, JSON.stringify(student), dbName, relName);
-            jQuery.ajaxSetup({async: false});
+            jQuery.ajaxSetup({ async: false });
             executeCommandAtGivenBaseUrl(request, "http://api.login2explore.com:5577", "/api/iml");
-            jQuery.ajaxSetup({async: true});
+            jQuery.ajaxSetup({ async: true });
             alert("Data Saved Successfully");
             resetForm();
         }
@@ -184,29 +192,28 @@
             var res = getStudent();
             var record = JSON.parse(res.data).rec_no;
             var request = createUPDATERecordRequest(token, JSON.stringify(student), dbName, relName, record);
-            jQuery.ajaxSetup({async: false});
+            jQuery.ajaxSetup({ async: false });
             executeCommandAtGivenBaseUrl(request, "http://api.login2explore.com:5577", "/api/iml");
-            jQuery.ajaxSetup({async: true});
+            jQuery.ajaxSetup({ async: true });
             alert("Data Updated Successfully");
             resetForm();
         }
 
-        $("#rollNo").on("blur", function() {
+        $("#rollNo").on("blur", function () {
             getStudent();
         });
 
-        $("#rollNo").on("keypress", function(e) {
+        $("#rollNo").on("keypress", function (e) {
             if (e.which === 13) {
                 getStudent();
             }
         });
 
-        $("#rollNo").on("input", function() {
+        $("#rollNo").on("input", function () {
             var rollNo = $("#rollNo").val();
             if (rollNo === "") {
                 resetForm();
             } else {
-                // If they are changing the rollNo, lock everything else until re-validation
                 $("#fullName").val("").prop("disabled", true);
                 $("#class").val("").prop("disabled", true);
                 $("#birthDate").val("").prop("disabled", true);
@@ -221,4 +228,5 @@
         resetForm();
     </script>
 </body>
+
 </html>
