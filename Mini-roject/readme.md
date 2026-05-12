@@ -24,10 +24,13 @@ I chose JSONPowerDB for this project because:
 * **Safety Lock**: If you start changing the ID after it's been checked, the form locks up and clears out until you validate the new ID.
 * **Validation**: It won't let you save if you leave any fields empty.
 
-## How to use it (Examples)
-1. **To Add New Data**: Type a new Roll-No. The other boxes will open up. Fill them in and hit **Save**.
-2. **To Change Data**: Type an ID that's already in the database. The info will pop up. Change whatever you need and hit **Update**.
-3. **To Clear**: Just hit **Reset** to start over with a fresh form.
+## How to use the form
+I made the form pretty simple to use. Here is how it works step-by-step:
+
+* **To add someone new**: Just type the Roll-No and hit Enter. The rest of the form will open up so you can type in the name, class, and other info. When you're finished, just hit **Save**.
+* **To change a record**: If you type a Roll-No that is already in the database, the form will find it and show you all their details automatically. You can change whatever you need and then hit **Update**.
+* **If you make a mistake**: Just click **Reset**. It clears everything out and puts the cursor back at the top so you can start over.
+
 
 ## Project Status
 * **Current Version**: 1.0.0
